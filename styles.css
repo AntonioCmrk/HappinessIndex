@@ -1,0 +1,53 @@
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: gainsboro;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+.worldmap {
+	margin-bottom: 5rem;
+}
+.dropdown {
+	margin-bottom: 3rem;
+}
+.sphere {
+	fill: gainsboro;
+}
+
+.country {
+	stroke: black;
+	stroke-width: 0.05px;
+}
+
+.country.highlighted {
+	stroke-width: 0.5px;
+}
+
+.country:hover {
+	opacity: 0.8;
+}
+
+.tick {
+	cursor: pointer;
+}
+
+.tick text {
+	font-size: 1em;
+	fill: black;
+	font-family: sans-serif;
+}
+
+.tick circle {
+	stroke: black;
+	stroke-opacity: 0.5;
+}
