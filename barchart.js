@@ -10,7 +10,7 @@ d3.json("data/2018-2019.json")
 			}
 		});
 
-		countries = Array.from(countriesList); // Convert set to an array
+		countries = Array.from(countriesList);
 
 		dropdown = d3.select("#country");
 		dropdown
@@ -32,12 +32,11 @@ d3.json("data/2018-2019.json")
 	.catch(function (error) {
 		console.error(error);
 	});
-// Define the dimensions of the chart
+
 const margin = { top: 20, right: 20, bottom: 30, left: 40 };
 const width = 500 - margin.left - margin.right;
 const height = 300 - margin.top - margin.bottom;
 
-// Create an SVG container for the chart
 const scoreChartSvg = d3
 	.select("#score-chart")
 	.append("svg")
@@ -46,15 +45,12 @@ const scoreChartSvg = d3
 	.append("g")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// Create x and y scales for the score chart
 const scoreX = d3.scaleBand().range([0, width]).padding(0.1);
 const scoreY = d3.scaleLinear().range([height, 0]);
 
-// Create x and y axes for the score chart
 const scoreXAxis = d3.axisBottom(scoreX);
 const scoreYAxis = d3.axisLeft(scoreY);
 
-// Create an SVG container for the rank chart
 const rankChartSvg = d3
 	.select("#rank-chart")
 	.append("svg")
@@ -63,17 +59,13 @@ const rankChartSvg = d3
 	.append("g")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// Create x and y scales for the rank chart
 const rankX = d3.scaleBand().range([0, width]).padding(0.1);
 const rankY = d3.scaleLinear().range([height, 0]);
 
-// Create x and y axes for the rank chart
 const rankXAxis = d3.axisBottom(rankX);
 const rankYAxis = d3.axisLeft(rankY);
 
-// Function to update the chart based on the selected or searched country
 function updateScoreChart(countryName, data) {
-	// Filter the data based on the selected or searched country name and years 2019 and 2018
 	const filteredData = data.filter(
 		(item) =>
 			item.Country_or_region === countryName &&
@@ -84,12 +76,10 @@ function updateScoreChart(countryName, data) {
 	scoreX.domain(filteredData.map((item) => item.Year));
 	scoreY.domain([0, d3.max(filteredData, (item) => item.Score)]);
 
-	// Remove any existing bars from the score chart
 	scoreChartSvg.selectAll(".bar").remove();
 	scoreChartSvg.select(".x-axis").remove();
 	scoreChartSvg.select(".y-axis").remove();
 
-	// Draw the bars for the score chart
 	scoreChartSvg
 		.selectAll(".bar")
 		.data(filteredData)
@@ -102,7 +92,6 @@ function updateScoreChart(countryName, data) {
 		.attr("height", (d) => height - scoreY(d.Score))
 		.attr("fill", "steelblue");
 
-	// Append x and y axes to the score chart
 	scoreChartSvg
 		.append("g")
 		.attr("class", "x-axis")
@@ -111,7 +100,6 @@ function updateScoreChart(countryName, data) {
 
 	scoreChartSvg.append("g").attr("class", "y-axis").call(scoreYAxis);
 
-	// Update the y-axis label for the score chart
 	scoreChartSvg
 		.append("text")
 		.attr("transform", "rotate(-90)")
@@ -121,10 +109,7 @@ function updateScoreChart(countryName, data) {
 		.style("text-anchor", "middle")
 		.text("Score");
 }
-
-// Function to update the rank chart based on the selected or searched country
 function updateRankChart(countryName, data) {
-	// Filter the data based on the selected or searched country name and years 2019 and 2018
 	const filteredData = data.filter(
 		(item) =>
 			item.Country_or_region === countryName &&
@@ -135,12 +120,10 @@ function updateRankChart(countryName, data) {
 	rankX.domain(filteredData.map((item) => item.Year));
 	rankY.domain([0, d3.max(filteredData, (item) => item.Overall_rank)]);
 
-	// Remove any existing bars from the rank chart
 	rankChartSvg.selectAll(".bar").remove();
 	rankChartSvg.select(".x-axis").remove();
 	rankChartSvg.select(".y-axis").remove();
 
-	// Draw the bars for the rank chart
 	rankChartSvg
 		.selectAll(".bar")
 		.data(filteredData)
@@ -153,7 +136,6 @@ function updateRankChart(countryName, data) {
 		.attr("height", (d) => height - rankY(d.Overall_rank))
 		.attr("fill", "darkred");
 
-	// Append x and y axes to the rank chart
 	rankChartSvg
 		.append("g")
 		.attr("class", "x-axis")

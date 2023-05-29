@@ -76,8 +76,6 @@ const pathGenerator = d3.geoPath().projection(projection);
 const choroplethMap = (selection, props) => {
 	const { features, colorScale, colorValue, selectedColorValue } = props;
 
-	//console.log(features);
-
 	const gUpdate = selection.selectAll("g").data([null]);
 	const gEnter = gUpdate.enter().append("g");
 	const g = gUpdate.merge(gEnter);
@@ -140,14 +138,8 @@ const svg = d3.select("svg");
 const choroplethMapG = svg.append("g");
 const colorLegendG = svg.append("g").attr("transform", `translate(40,310)`);
 
-/*const customColors = ["#FFFF00", "#FFA500", "#FF0000", "#00FF00", "#ADD8E6", "00008B"];
-const domain = [0, 100];
-const colorScale = d3.scaleLinear()
-.domain(domain)
-.range(customColors);*/
 const colorScale = d3.scaleOrdinal();
 
-// const colorValue = d => d.properties.income_grp;
 const colorValue = (d) => d.properties.happines_rank;
 
 let selectedColorValue;
