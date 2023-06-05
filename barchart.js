@@ -90,7 +90,7 @@ function updateScoreChart(countryName, data) {
 		.attr("y", (d) => scoreY(d.Score))
 		.attr("width", scoreX.bandwidth())
 		.attr("height", (d) => height - scoreY(d.Score))
-		.attr("fill", "steelblue");
+		.attr("fill", "#019992");
 
 	scoreChartSvg
 		.append("g")
@@ -134,7 +134,7 @@ function updateRankChart(countryName, data) {
 		.attr("y", (d) => rankY(d.Overall_rank))
 		.attr("width", rankX.bandwidth())
 		.attr("height", (d) => height - rankY(d.Overall_rank))
-		.attr("fill", "darkred");
+		.attr("fill", "#FFB001");
 
 	rankChartSvg
 		.append("g")

@@ -98,6 +98,7 @@ const choroplethMap = (selection, props) => {
 		.enter()
 		.append("path")
 		.attr("class", "country");
+
 	countryPaths
 		.merge(countryPathsEnter)
 		.attr("d", pathGenerator)
@@ -118,19 +119,19 @@ const choroplethMap = (selection, props) => {
 				"\nRank: " +
 				d.properties.overall_rank +
 				"\nScore: " +
-				d.properties.score +
+				d.properties.score / 1000 +
 				"\nGDP per capita: " +
-				d.properties.GDP_per_capita +
+				d.properties.GDP_per_capita / 1000 +
 				"\nSocial support: " +
-				d.properties.social_support +
+				d.properties.social_support / 1000 +
 				"\nHealthy life expectancy: " +
-				d.properties.healthy_life_expectancy +
+				d.properties.healthy_life_expectancy / 1000 +
 				"\nFreedom to make life choices: " +
-				d.properties.freedom_to_make_life_choices +
+				d.properties.freedom_to_make_life_choices / 1000 +
 				"\nGenerosity: " +
-				d.properties.generosity +
+				d.properties.generosity / 1000 +
 				"\nPerceptions of corruption: " +
-				d.properties.perceptions_of_corruption,
+				d.properties.perceptions_of_corruption / 1000,
 		);
 };
 
@@ -138,12 +139,47 @@ const svg = d3.select("svg");
 const choroplethMapG = svg.append("g");
 const colorLegendG = svg.append("g").attr("transform", `translate(40,310)`);
 
-const colorScale = d3.scaleOrdinal();
+const mapColors1 = [
+	"#F4989D",
+	"#BD8DBF",
+	"#A286C0",
+	"#8781BD",
+	"#8492C9",
+	"#7DA7D9",
+	"#808080",
+];
+const mapColors2 = [
+	"#FFFF00",
+	"#FFA500",
+	"#FF0000",
+	"#008000",
+	"#ADD8E6",
+	"#00008B",
+	"#808080",
+];
+const mapColors3 = [
+	"#FFFFCC",
+	"#FFDAB9",
+	"#FFCCCC",
+	"#CCFFCC",
+	"#B0E0E6",
+	"#B0C4DE",
+	"#D3D3D3",
+];
+const mapColors4 = [
+	"#FFFF99",
+	"#FFB266",
+	"#FF6666",
+	"#99CC99",
+	"#87CEEB",
+	"#4169E1",
+	"#A9A9A9",
+];
 
 const colorValue = (d) => d.properties.happines_rank;
-
 let selectedColorValue;
 let features;
+let colorScale;
 
 const onClick = (d) => {
 	selectedColorValue = d;
@@ -152,14 +188,17 @@ const onClick = (d) => {
 
 loadAndProcessData().then((countries) => {
 	features = countries.features;
+	colorScale = d3
+		.scaleOrdinal()
+		.domain(features.map(colorValue))
+		.range(mapColors1);
 	render();
 });
 
 const render = () => {
 	colorScale
 		.domain(features.map(colorValue))
-		.domain(colorScale.domain().sort())
-		.range(d3.schemeSpectral[colorScale.domain().length]);
+		.domain(colorScale.domain().sort());
 
 	colorLegendG.call(colorLegend, {
 		colorScale,

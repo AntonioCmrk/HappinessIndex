@@ -6,7 +6,18 @@ body {
 }
 
 body {
-	background-color: gainsboro;
+	background-color: #f1e8ff;
+}
+
+h1 {
+	font-size: 48px;
+	font-family: Arial, sans-serif;
+	color: #333;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	margin: 20px 0;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .container {
@@ -21,16 +32,16 @@ body {
 	margin-bottom: 3rem;
 }
 .sphere {
-	fill: gainsboro;
+	fill: #f1e8ff;
 }
 
 .country {
 	stroke: black;
-	stroke-width: 0.05px;
+	stroke-width: 0.1px;
 }
 
 .country.highlighted {
-	stroke-width: 0.5px;
+	stroke-width: 0.1px;
 }
 
 .country:hover {
